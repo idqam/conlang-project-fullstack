@@ -3,7 +3,7 @@ from typing import List
 
 from typing import List
 
-IPA_CONSONANTS_FLAGGED = [
+IPA_CONSONANTS_FLAGGED_FULL = [
     {"symbol": 'p', "group": 'plosives', "voicing": 'voiceless', "complexity": 'basic'},
     {"symbol": 't', "group": 'plosives', "voicing": 'voiceless', "complexity": 'basic'},
     {"symbol": 'ʈ', "group": 'plosives', "voicing": 'voiceless', "complexity": 'basic'},
@@ -93,43 +93,61 @@ IPA_CONSONANTS_FLAGGED = [
 ]
 
 
-IPA_VOWELS_FLAGGED = [
+
+IPA_VOWELS_FLAGGED_FULL = [
     {"symbol": "i", "height": "close", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "y", "height": "close", "backness": "front", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ɨ", "height": "close", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ʉ", "height": "close", "backness": "central", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ɯ", "height": "close", "backness": "back", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "u", "height": "close", "backness": "back", "roundedness": "rounded", "complexity": "basic"},
-
     {"symbol": "ɪ", "height": "near-close", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ʏ", "height": "near-close", "backness": "front", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ʊ", "height": "near-close", "backness": "back", "roundedness": "rounded", "complexity": "basic"},
-
     {"symbol": "e", "height": "close-mid", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ø", "height": "close-mid", "backness": "front", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ɘ", "height": "close-mid", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɵ", "height": "close-mid", "backness": "central", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ɤ", "height": "close-mid", "backness": "back", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "o", "height": "close-mid", "backness": "back", "roundedness": "rounded", "complexity": "basic"},
-
     {"symbol": "ə", "height": "mid", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
-
     {"symbol": "ɛ", "height": "open-mid", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "œ", "height": "open-mid", "backness": "front", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ɜ", "height": "open-mid", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɞ", "height": "open-mid", "backness": "central", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ʌ", "height": "open-mid", "backness": "back", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɔ", "height": "open-mid", "backness": "back", "roundedness": "rounded", "complexity": "basic"},
-
     {"symbol": "æ", "height": "near-open", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɐ", "height": "near-open", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
-
     {"symbol": "a", "height": "open", "backness": "front", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɶ", "height": "open", "backness": "front", "roundedness": "rounded", "complexity": "basic"},
     {"symbol": "ä", "height": "open", "backness": "central", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɑ", "height": "open", "backness": "back", "roundedness": "unrounded", "complexity": "basic"},
     {"symbol": "ɒ", "height": "open", "backness": "back", "roundedness": "rounded", "complexity": "basic"}
 ]
+
+DEFAULT_CONSONANT_MAP = {
+    item["symbol"]: {
+        "symbol": item["symbol"],
+        "type": "consonant",
+        "manner": item["group"],
+        "voicing": item["voicing"],
+        "complexity": item["complexity"]
+    } for item in IPA_CONSONANTS_FLAGGED_FULL
+}
+
+DEFAULT_VOWEL_MAP = {
+    item["symbol"]: {
+        "symbol": item["symbol"],
+        "type": "vowel",
+        "height": item["height"],
+        "backness": item["backness"],
+        "roundedness": item["roundedness"],
+        "complexity": item["complexity"]
+    } for item in IPA_VOWELS_FLAGGED_FULL
+}
+
+
 
 DIACRITICS = {
     "aspirated": "ʰ",
@@ -155,11 +173,11 @@ def apply_diacritic(phoneme: str, diacritic_type: str) -> str:
 
 
 def get_all_consonants() -> List[str]:
-    return [entry["symbol"] for entry in IPA_CONSONANTS_FLAGGED]
+    return [entry["symbol"] for entry in IPA_CONSONANTS_FLAGGED_FULL]
 
 
 def get_all_vowels() -> List[str]:
-    return [entry["symbol"] for entry in IPA_VOWELS_FLAGGED]
+    return [entry["symbol"] for entry in IPA_VOWELS_FLAGGED_FULL]
 
 
 def get_full_ipa_inventory() -> List[str]:
