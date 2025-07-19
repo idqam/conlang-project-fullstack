@@ -159,8 +159,35 @@ DIACRITICS = {
     "creaky": "̰",
     "breathy": "̤",
     "high_tone": "˥",
-    "low_tone": "˩"
+    "low_tone": "˩",
+    "nasalized": "̃",
+    "aspirated": "ʰ",
+    "voiceless": "̥",
+    "creaky": "̰"
 }
+
+
+SUPRASEGMENTAL_OPTIONS = {
+    "stress": ["initial", "final", "penultimate", "fixed", "contrastive"],
+    "tone": ["none", "level", "contour", "register"],
+    "intonation": ["declarative-falling", "interrogative-rising", "neutral"]
+}
+
+SOUND_CHANGE_TEMPLATES = [
+    "t > θ / _i",
+    "k > ʔ / _#",
+    "p > f / _s",
+    "s > ʃ / _t",
+    "a > æ / _n",
+    "v > b / #_",
+]
+
+ALLOPHONY_RULES = [
+    "/n/ → [ŋ] before /k/",
+    "/t/ → [ʔ] between vowels",
+    "/s/ → [z] before voiced stops"
+]
+
 
 
 def apply_diacritic(phoneme: str, diacritic_type: str) -> str:
